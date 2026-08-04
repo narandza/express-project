@@ -1,21 +1,14 @@
 const express = require("express");
-const prisma = require("./prismaClient");
+const UserService = require("./src/services/userService");
 
 const app = express();
 
 app.use(express.json());
 
 app.get("/", async (req, res) => {
-  const user = prisma.user.create({
-    data: {
-      email: "test2@gmail.com",
-      name: "Bron",
-      password: "sifra123",
-    },
-  });
-
+  const user = await UserService.register("jova", "jova@email.com", "sifra123");
   res.json({
-    test: "Check db",
+    test: user,
   });
 });
 
