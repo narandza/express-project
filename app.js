@@ -1,12 +1,25 @@
 const express = require("express");
 const UserService = require("./src/services/userService");
 const prismaStatusCodes = require("./config/prismaStatusCodes");
+const userService = require("./src/services/userService");
 
 const app = express();
 
 app.use(express.json());
 
-app.get("/", async (req, res) => {
+app.get("/login", async (req, res) => {
+  try {
+    const user = await userService.login("jova@email.com", "sifra123");
+
+    res.json({
+      test: user,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+app.get("/register", async (req, res) => {
   try {
     const user = await UserService.register(
       "jova",
