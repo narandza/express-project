@@ -1,10 +1,11 @@
-const UserService = require("./src/services/userService");
-const prismaStatusCodes = require("./config/prismaStatusCodes");
+const UserService = require("../services/userService");
+const prismaStatusCodes = require("../../config/prismaStatusCodes");
 
 module.exports = {
   register: async (req, res) => {
+    const { name, email, password } = req.body;
     try {
-      const user = await UserService.register();
+      const user = await UserService.register(name, email, password);
       res.json();
     } catch (e) {
       if (e.code === prismaStatusCodes.UNIQUE_CONSTRAINT_FAILED)
@@ -13,8 +14,9 @@ module.exports = {
     }
   },
   login: async (req, res) => {
+    const { email, password } = req.body;
     try {
-      const user = await UserService.login("jova@email.com", "sifra123");
+      const user = await UserService.login(email, password);
 
       res.json({
         test: user,
