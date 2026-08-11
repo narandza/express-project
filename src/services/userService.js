@@ -14,19 +14,11 @@ module.exports = {
     });
   },
 
-  login: async (email, password) => {
-    const user = await prisma.user.findFirst({
+  login: async (email) => {
+    return prisma.user.findUnique({
       where: {
         email,
       },
     });
-
-    if (user === null) throw new Error("User with this email does not exist");
-
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if (!isMatch) throw new Error("Wrong password");
-
-    return user;
   },
 };

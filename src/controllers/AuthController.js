@@ -1,5 +1,6 @@
 const UserService = require("../services/userService");
 const prismaStatusCodes = require("../../config/prismaStatusCodes");
+const bcrypt = require("bcryptjs");
 
 module.exports = {
   register: async (req, res) => {
@@ -45,9 +46,17 @@ module.exports = {
     try {
       const user = await UserService.login(email, password);
 
+      if (!user || !(await bcrypt.compare(password, user.password))) {
+        return res.status(401).json({
+          message: "Invalid email or password",
+        });
+      }
+
+      const { password: _password, ...safeUser } = user;
+
       return res.status(200).json({
         message: "Login successful",
-        user,
+        user: safeUser,
       });
     } catch (e) {
       console.error(e);
