@@ -1,0 +1,9 @@
+### Register user 
+POST  http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+  "email": "user{{$randomInt 100000 999999}}@example.com",
+    "password": "sifra123"
+}

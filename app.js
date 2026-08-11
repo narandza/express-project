@@ -5,8 +5,8 @@ const app = express();
 
 app.use(express.json());
 
-app.get("/login", AuthController.login);
+app.post("/login", AuthController.login);
 
-app.get("/register", AuthController.register);
+app.post("/register", AuthController.register);
 
 app.listen(3000);

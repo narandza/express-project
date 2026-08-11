@@ -3,6 +3,12 @@ const prismaStatusCodes = require("../../config/prismaStatusCodes");
 
 module.exports = {
   register: async (req, res) => {
+    if (!req.body) {
+      return res.status(400).json({
+        message: "Request body must be valid JSON with Content-Type: application/json",
+      });
+    }
+
     const { name, email, password } = req.body;
 
     try {
@@ -28,6 +34,12 @@ module.exports = {
   },
 
   login: async (req, res) => {
+    if (!req.body) {
+      return res.status(400).json({
+        message: "Request body must be valid JSON with Content-Type: application/json",
+      });
+    }
+
     const { email, password } = req.body;
 
     try {
