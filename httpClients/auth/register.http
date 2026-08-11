@@ -1,6 +1,6 @@
 ### Register user 
-POST  http://localhost:3000/register
-Content-Type: application/json
+POST {{host}}/register
+Content-Type: {{contentType}}
 
 {
     "name": "John Doe",
