@@ -1,12 +1,10 @@
 const express = require("express");
-const AuthController = require("./src/controllers/AuthController");
 
 const app = express();
 
+const authRouter = require("./config/routes/auth");
+
 app.use(express.json());
+app.use("/api", authRouter);
 
-app.post("/login", AuthController.login);
-
-app.post("/register", AuthController.register);
-
-app.listen(3000);
+app.listen(3000, () => console.log("Server running on http://localhost:3000"));
