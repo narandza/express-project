@@ -1,12 +1,14 @@
 const UserService = require("../services/userService");
 const prismaStatusCodes = require("../../config/prismaStatusCodes");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 module.exports = {
   register: async (req, res) => {
     if (!req.body) {
       return res.status(400).json({
-        message: "Request body must be valid JSON with Content-Type: application/json",
+        message:
+          "Request body must be valid JSON with Content-Type: application/json",
       });
     }
 
@@ -37,7 +39,8 @@ module.exports = {
   login: async (req, res) => {
     if (!req.body) {
       return res.status(400).json({
-        message: "Request body must be valid JSON with Content-Type: application/json",
+        message:
+          "Request body must be valid JSON with Content-Type: application/json",
       });
     }
 
@@ -54,9 +57,14 @@ module.exports = {
 
       const { password: _password, ...safeUser } = user;
 
+      const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+      });
+
       return res.status(200).json({
         message: "Login successful",
         user: safeUser,
+        token,
       });
     } catch (e) {
       console.error(e);
