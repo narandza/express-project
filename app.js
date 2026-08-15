@@ -3,8 +3,10 @@ const express = require("express");
 const app = express();
 
 const authRouter = require("./config/routes/auth");
+const userRouter = require("./config/routes/users");
 
 app.use(express.json());
 app.use("/api", authRouter);
+app.use("/api/users", userRouter);
 
 app.listen(3000, () => console.log("Server running on http://localhost:3000"));
