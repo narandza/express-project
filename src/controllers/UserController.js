@@ -1,4 +1,5 @@
 const prisma = require("../../prismaClient");
+const { generateLoginToken } = require("../utils/jwt");
 
 module.exports = {
   register: async (req, res) => {
@@ -15,8 +16,7 @@ module.exports = {
       const user = await UserService.register(name, email, password);
 
       res.status(201).json({
-        message: "User registered successfully",
-        user,
+        token: generateLoginToken({ userId: user.id }),
       });
     } catch (e) {
       if (e.code === prismaStatusCodes.UNIQUE_CONSTRAINT_FAILED) {
