@@ -11,6 +11,11 @@ module.exports = {
         email,
         password: hashed,
       },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+      },
     });
   },
 
@@ -18,6 +23,11 @@ module.exports = {
     return prisma.user.findUnique({
       where: {
         email,
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
       },
     });
   },

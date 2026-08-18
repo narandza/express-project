@@ -16,6 +16,7 @@ module.exports = {
       const user = await UserService.register(name, email, password);
 
       res.status(201).json({
+        user,
         token: generateLoginToken({ userId: user.id }),
       });
     } catch (e) {
@@ -32,6 +33,7 @@ module.exports = {
       });
     }
   },
+
   getAll: async (req, res) => {
     res.json({
       users: await prisma.user.findMany({
