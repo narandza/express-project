@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "dev": "concurrently \"mongod --dbpath ~/data/db --replSet rs0\" \"nodemon app.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,6 +18,7 @@
     "jsonwebtoken": "^9.0.3"
   },
   "devDependencies": {
+    "concurrently": "^10.0.5",
     "prisma": "6.19"
   }
 }
